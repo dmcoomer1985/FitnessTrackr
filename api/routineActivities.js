@@ -4,7 +4,15 @@ const { updateRoutineActivity, canEditRoutineActivity, destroyRoutineActivity, g
 const client = require('../db/client');
 const { requireUser, requiredNotSent } = require('./utils')
 
-
+// Get /api/routineActivities/
+router.get('/', async (req, res, next) => {
+  try {
+    const routineActivities = await routineActivities();
+    res.send(activities);
+  } catch (error) {
+    next(error)
+  }
+})
 
 // PATCH /api/routine_activities/:routineActivityId
 router.patch('/:routineActivityId', requireUser, requiredNotSent({requiredParams: ['count', 'duration'], atLeastOne: true}), async (req, res, next) => {
